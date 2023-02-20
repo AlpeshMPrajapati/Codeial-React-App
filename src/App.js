@@ -7,6 +7,7 @@ import Alert from "./components/Alert";
 
 function App() {
   const [mode,setMode] = useState('light');
+  const [gMode,setGMode] = useState('light');
   const [alert,setAlert] = useState(null);
 
   const showAlert = (message,type)=>{
@@ -19,13 +20,26 @@ function App() {
       }, 1500);
   }
 
+  const greenMode = () =>{
+    if(gMode === 'light'){
+      setGMode('success')
+      document.body.style.backgroundColor = "darkgreen";
+      showAlert("Dark Green Mode has been enabled","success")
+    }
+    else{
+      setGMode('light')
+      document.body.style.backgroundColor = "white";
+      showAlert("Light Mode has been enabled","success")
+    }
+  }
+
   const toggleMode = ()=>{
     if(mode === 'light'){
       setMode('dark')
       document.body.style.backgroundColor = "#001e36";
       showAlert("Dark Mode has been enabled","success")
     }
-    else{
+    else {
       setMode('light')
       document.body.style.backgroundColor = "white";
       showAlert("Light Mode has been enabled","success")
@@ -34,11 +48,11 @@ function App() {
 
   return (
     <>
-      <Navbar title = "Codeial" mode={mode} toggleMode = {toggleMode}/>
+      <Navbar title = "Codeial" mode={mode}  gMode={gMode} greenMode={greenMode} toggleMode = {toggleMode}/>
       <Alert alert ={alert}/>
       <div className="container my-4">
-      <TextForm heading="Enter the Text" showAlert={showAlert} mode={mode} toggleMode = {toggleMode}/>
-      <About mode={mode} toggleMode = {toggleMode}/>
+      <TextForm heading="Enter the Text" showAlert={showAlert} gMode={gMode} greenMode={greenMode} mode={mode} toggleMode = {toggleMode}/>
+      <About gMode={gMode} greenMode={greenMode} mode={mode} toggleMode = {toggleMode}/>
       </div>
     </>
   );
