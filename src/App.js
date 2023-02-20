@@ -4,7 +4,11 @@ import TextForm from "./components/TextForm";
 import About from "./components/About";
 import React, { useState } from "react";
 import Alert from "./components/Alert";
-
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
 function App() {
   const [mode,setMode] = useState('light');
   const [gMode,setGMode] = useState('light');
@@ -48,12 +52,17 @@ function App() {
 
   return (
     <>
+    <Router>
       <Navbar title = "Codeial" mode={mode}  gMode={gMode} greenMode={greenMode} toggleMode = {toggleMode}/>
       <Alert alert ={alert}/>
       <div className="container my-4">
-      <TextForm heading="Enter the Text" showAlert={showAlert} gMode={gMode} greenMode={greenMode} mode={mode} toggleMode = {toggleMode}/>
-      <About gMode={gMode} greenMode={greenMode} mode={mode} toggleMode = {toggleMode}/>
+      <Routes>
+          <Route exact path="/About" element ={<About gMode={gMode} greenMode={greenMode} mode={mode} toggleMode = {toggleMode}/>} />
+       
+          <Route exact  path="/" element ={<TextForm heading="Enter the Text" showAlert={showAlert} gMode={gMode} greenMode={greenMode} mode={mode} toggleMode = {toggleMode}/>} />
+        </Routes>
       </div>
+      </Router>
     </>
   );
 }
